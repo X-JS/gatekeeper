@@ -1,0 +1,5 @@
+interface:
+  display_name: "gatekeeper core rules"
+  short_description: "GateKeeper 开发迭代流程核心逻辑"
+policy:
+  allow_implicit_invocation: false

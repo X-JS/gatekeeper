@@ -1,0 +1,5 @@
+interface:
+  display_name: "gatekeeper finish"
+  short_description: "GateKeeper 完结归档：校验四项后迁移至 history"
+policy:
+  allow_implicit_invocation: false

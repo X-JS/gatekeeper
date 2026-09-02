@@ -1,0 +1,5 @@
+interface:
+  display_name: "gatekeeper next"
+  short_description: "GateKeeper 阶段推进执行：确认复核通过后执行当前阶段任务"
+policy:
+  allow_implicit_invocation: false

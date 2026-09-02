@@ -1,0 +1,5 @@
+interface:
+  display_name: "gatekeeper fix"
+  short_description: "GateKeeper 整改执行：读取待整改问题并针对性修复"
+policy:
+  allow_implicit_invocation: false

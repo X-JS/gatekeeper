@@ -1,0 +1,5 @@
+interface:
+  display_name: "gatekeeper abort"
+  short_description: "GateKeeper 中止归档：核对留痕后迁移至 history"
+policy:
+  allow_implicit_invocation: false

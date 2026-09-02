@@ -1,0 +1,5 @@
+interface:
+  display_name: "gatekeeper files init"
+  short_description: "GateKeeper 开发迭代流程相关文件初始化"
+policy:
+  allow_implicit_invocation: false
