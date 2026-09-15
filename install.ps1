@@ -9,6 +9,7 @@ $githubRepoBaseUrl = "https://github.com/X-JS/gatekeeper/tree/dev/skills"
 
 # 填写你仓库 skills/ 下面所有skill子文件夹名称
 $skillNames = @(
+    "gatekeeper",
     "gatekeeper-init",
     "gatekeeper-next",
     "gatekeeper-fix",
@@ -18,30 +19,30 @@ $skillNames = @(
 # ======================================================================
 
 # 目标目录：项目本地 .opencode/skills
-$targetDir = Join‑Path $PWD.Path ".opencode\skills"
+$targetDir = Join-Path $PWD.Path ".opencode\skills"
 
 # 如果目标文件夹不存在就创建
-if (-not (Test‑Path $targetDir)) {
-    New‑Item -ItemType Directory -Path $targetDir -Force | Out‑Host
-    Write‑Host "创建目标目录：$targetDir"
+if (-not (Test-Path $targetDir)) {
+    New-Item -ItemType Directory -Path $targetDir -Force | Out-Host
+    Write-Host "创建目标目录：$targetDir"
 }
 
-Write‑Host "`n===== 开始批量安装 Skills ====="
+Write-Host "`n===== 开始批量安装 Skills ====="
 foreach ($skill in $skillNames) {
     $skillUrl = "$githubRepoBaseUrl/$skill"
-    Write‑Host "`n👉 正在安装：$skill"
-    Write‑Host "URL: $skillUrl"
+    Write-Host "`n👉 正在安装：$skill"
+    Write-Host "URL: $skillUrl"
 
     # 项目本地安装：不加 -g，不加 -a opencode
     npx skills add $skillUrl -y
 
     if ($LASTEXITCODE -eq 0) {
-        Write‑Host "✅ $skill 安装完成"
+        Write-Host "✅ $skill 安装完成"
     }
     else {
-        Write‑Host "❌ $skill 安装失败，请检查链接、仓库是否公开、SKILL.md是否存在"
+        Write-Host "❌ $skill 安装失败，请检查链接、仓库是否公开、SKILL.md是否存在"
     }
 }
 
-Write‑Host "`n===== 全部执行完毕 ====="
-Write‑Host "请查看 .opencode/skills/ 目录确认文件"
+Write-Host "`n===== 全部执行完毕 ====="
+Write-Host "请查看 .opencode/skills/ 目录确认文件"

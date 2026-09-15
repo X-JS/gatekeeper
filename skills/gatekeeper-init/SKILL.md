@@ -1,6 +1,6 @@
 ---
 name: gatekeeper-init
-description: Gatekeeper 初始化子 skill（`/gatekeeper-init`）。创建 `项目根/.gatekeeper/${版本编号}/` 并实例化 requirement.md / progress.md（模板取用 `gatekeeper` skill 的 `template/`），校验占位符。仅人工触发。
+description: Gatekeeper 初始化子 skill（`/gatekeeper-init`）。创建 `项目根/.gatekeeper/${版本编号}/` 并实例化 requirement.md / progress.md（模板取用 `gatekeeper` skill 的 `assets/`），校验占位符。仅人工触发。
 version: "0.0.1"
 author: X-JS
 license: MIT
@@ -20,7 +20,7 @@ metadata:
 - 已存在 → 列出文件询问人工（跳过/确认覆盖/补齐），未确认不写入；分支名含目录非法字符 → 中止询问。
 
 ### 2. 实例化模板
-- 从 `gatekeeper` skill 的 `template/` 复制：`_template-requirement.md` → requirement.md、`_template-progress.md` → progress.md。
+- 从 `gatekeeper` skill 的 `assets/` 复制：`_template-requirement.md` → requirement.md、`_template-progress.md` → progress.md。
 - 将 `${版本编号}` 占位符替换为实际分支名；不做其他内容改动。
 
 ### 3. 校验（不通过不启动）

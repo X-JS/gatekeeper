@@ -13,7 +13,7 @@ metadata:
 
 > 本文件是迭代流水线的**单一规则源 + 总控路由**；所有子 skill 的职责见第八节，整体规则以下各节为准。
 > 版本编号 = 当前 Git 分支名（只读 `git branch --show-current` 获取；失败/空 → 提示人工切换分支，禁止用空串/猜测值）。
-> **路径约定（全局生效）**：`项目根/...` 一律指 Git 仓库根目录（`AGENTS.md` 所在目录，如 `项目根/.gatekeeper/`）；`gatekeeper` skill 的 `template/` 指该 skill 自身资源目录，两者不可混淆。
+> **路径约定（全局生效）**：`项目根/...` 一律指 Git 仓库根目录（`AGENTS.md` 所在目录，如 `项目根/.gatekeeper/`）；`gatekeeper` skill 的 `assets/` 指该 skill 自身资源目录，两者不可混淆。
 
 ## When to Use
 1. **仅人工**以 `/gatekeeper` 命令触发（`agents/openai.yaml` 设 `allow_implicit_invocation: false`，禁止 Agent 隐式调用）；
@@ -42,9 +42,10 @@ metadata:
 9. **staging 归属判定（test.md 强制）**：判「需求已有 / 需求未覆盖」前必须先 read requirement.md 原文引用条目；归属列仅允许该两枚举值，非法值主动提示人工修正；修复致接口契约变化须声明 apidoc 已同步。
 10. **跨迭代回归（强制）**：design.md 变更点清单须声明「关联历史迭代回归项」；触及上期功能时 dev 测试必须回测并在 review.md ③ 留痕，否则 dev 测试不完整。
 
-## 三、文件读写权限清单
+## 三、留痕与流程文件读写权限清单
 
-Agent 仅允许访问以下文件，其余一律只读：
+> 本表仅约束 `.gatekeeper/` 留痕与全局流程文件；源码及 `crmeb/sql/`、`crmeb/apidoc/` 等属编码/测试阶段正常读写范围，不受本表限制。
+> 表内未列出的 `.gatekeeper/` 文件一律只读：
 
 | 文件 | 可读 | Agent 写入 | 说明 |
 |------|:----:|:----------:|------|
@@ -58,14 +59,14 @@ Agent 仅允许访问以下文件，其余一律只读：
 
 ## 四、模板与文件生成规则
 
-模板统一存放于本 skill（`gatekeeper`）的 `template/`；实例化 = 复制到 `项目根/.gatekeeper/${版本编号}/` + 替换 `${版本编号}` + 删除「使用说明」冗余文字：
+模板统一存放于本 skill（`gatekeeper`）的 `assets/`；实例化 = 复制到 `项目根/.gatekeeper/${版本编号}/` + 替换 `${版本编号}` + 删除「使用说明」冗余文字：
 
 | 模板 | 实例化目标 | 生成者 | 生成时机 |
 |------|------------|--------|----------|
 | `_template-requirement.md` | requirement.md | 人工 | 初始化（`gatekeeper-init`） |
 | `_template-progress.md` | progress.md | 人工 | 初始化（`gatekeeper-init`） |
 | `_template-design.md` | design.md | Agent | 阶段2（`gatekeeper-next`） |
-| `_template-review.md` | review.md | Agent | 阶段5（`gatekeeper-next`） |
+| `_template-review.md` | review.md | Agent | 阶段2（`gatekeeper-next`） |
 | `_template-test.md` | test.md | Agent | 阶段7（`gatekeeper-next`） |
 
 ## 五、单轮对话范围约束
@@ -121,7 +122,7 @@ Agent 仅允许访问以下文件，其余一律只读：
 | 3 | 阶段2 概要设计未完成 | `/gatekeeper-next`（产出 design.md；小改动可标跳过） |
 | 4 | 阶段3 编码+单测未完成 | `/gatekeeper-next` |
 | 5 | 阶段4 dev 测试未完成 | `/gatekeeper-next` |
-| 6 | 阶段5 代码评审未完成 | `/gatekeeper-next`（实例化 review.md）；待整改回流 fix |
+| 6 | 阶段5 代码评审未完成 | `/gatekeeper-next`（review.md 已在阶段2实例化）；待整改回流 fix |
 | 7 | 阶段6 提交合并+部署 staging | 无子 skill：人工执行 git（Agent 不执行） |
 | 8 | 阶段7 staging 测试未完成 | `/gatekeeper-next`（实例化 test.md）；待整改回流 fix |
 | 9 | 阶段8 收尾且归档条件满足 | `/gatekeeper-finish` |
