@@ -1,5 +1,5 @@
 interface:
   display_name: "gatekeeper core rules"
-  short_description: "GateKeeper 开发迭代流程核心逻辑"
+  short_description: "Gatekeeper 是一套给 AI 编码 Agent 用的开发迭代流程管控；总控路由 + 单一规则源：定位进度、分派子 Skill（仅人工触发）"
 policy:
   allow_implicit_invocation: false
